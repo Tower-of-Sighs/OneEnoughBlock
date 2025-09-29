@@ -14,7 +14,10 @@ public class Config {
     static final ForgeConfigSpec SPEC ;
     static {
         WRAPPERS = BUILDER
-                .define("wrapper",new ArrayList<>(List.of("minecraft:end_stone>minecraft:acacia_log","#logs>tnt")));
+                .comment("配置方块替换逻辑格式为<方块id/tag> + > + <方块id>")
+                .comment("例如:")
+                .comment("\"minecraft:end_stone>minecraft:acacia_log\"","\"#logs > tnt\"")
+                .define("wrapper",new ArrayList<>(List.of()));
         SPEC = BUILDER.build();
     }
 }

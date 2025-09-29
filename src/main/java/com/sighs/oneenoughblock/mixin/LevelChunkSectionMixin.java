@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Mixin(LevelChunkSection.class)
-public abstract class BlockGetterMixin {
+public abstract class LevelChunkSectionMixin {
     @Shadow
     @Final
     private PalettedContainer<BlockState> states;
