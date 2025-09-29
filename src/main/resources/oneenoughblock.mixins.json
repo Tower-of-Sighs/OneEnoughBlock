@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "oneenoughblock.refmap.json",
   "mixins": [
-    "BlockGetterMixin"
+    "BlockGetterMixin",
+    "LevelMixin"
   ],
   "client": [
   ],

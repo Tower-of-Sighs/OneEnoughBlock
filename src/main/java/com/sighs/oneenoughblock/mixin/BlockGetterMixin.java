@@ -38,7 +38,7 @@ public abstract class BlockGetterMixin {
                     cir.setReturnValue(setBlockState(x, y, z, wrapper.defaultBlockState(), useLocks));
                 });
     }
-    /*
+
 
     @Inject(method = "getBlockState", at = @At("HEAD"))
     public void getBlockState(int x, int y, int z, CallbackInfoReturnable<BlockState> cir) {
@@ -46,5 +46,5 @@ public abstract class BlockGetterMixin {
                 .ifPresent(wrapper -> {
                     setBlockState(x,y,z,wrapper.defaultBlockState(),false);
                 });
-    }*/
+    }
 }
