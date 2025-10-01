@@ -3,7 +3,7 @@ package com.sighs.oneenoughblock.mixin;
 import com.sighs.oneenoughblock.Config;
 import com.sighs.oneenoughblock.api.IPalettedContainer;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.*;
+import net.minecraft.world.level.chunk.PalettedContainer;
 import net.minecraft.world.level.chunk.storage.ChunkSerializer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

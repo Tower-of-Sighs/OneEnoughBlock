@@ -1,9 +1,6 @@
 package com.sighs.oneenoughblock.mixin;
 
-import com.sighs.oneenoughblock.Oneenoughblock;
 import com.sighs.oneenoughblock.utils.CoreUtils;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.level.chunk.PalettedContainer;
@@ -13,9 +10,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Map;
-import java.util.Optional;
 
 @Mixin(LevelChunkSection.class)
 public abstract class LevelChunkSectionMixin {

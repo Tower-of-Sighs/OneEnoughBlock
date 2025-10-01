@@ -1,18 +1,13 @@
 package com.sighs.oneenoughblock;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Mod.EventBusSubscriber(modid = Oneenoughblock.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Config {
-    private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 //    public static final ForgeConfigSpec.ConfigValue<List<String>> WRAPPERS;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> REPLACE_EXISTED_BLOCK;
+    public static final ModConfigSpec.ConfigValue<Boolean> REPLACE_EXISTED_BLOCK;
 
-    static final ForgeConfigSpec SPEC ;
+    static final ModConfigSpec SPEC ;
     static {
 //        WRAPPERS = BUILDER
 //                .comment("配置方块替换逻辑格式为<方块id/tag> + > + <方块id>")
