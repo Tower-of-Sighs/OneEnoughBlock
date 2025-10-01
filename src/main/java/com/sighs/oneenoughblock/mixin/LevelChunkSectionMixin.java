@@ -1,6 +1,7 @@
 package com.sighs.oneenoughblock.mixin;
 
 import com.sighs.oneenoughblock.Oneenoughblock;
+import com.sighs.oneenoughblock.utils.CoreUtils;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,24 +28,15 @@ public abstract class LevelChunkSectionMixin {
 
     @Inject(method = "setBlockState(IIILnet/minecraft/world/level/block/state/BlockState;Z)Lnet/minecraft/world/level/block/state/BlockState;", at = @At("HEAD"), cancellable = true)
     public void setBlockState(int x, int y, int z, BlockState state, boolean useLocks, CallbackInfoReturnable<BlockState> cir) {
-        for (Map.Entry<TagKey<Block>, Block> entry : Oneenoughblock.TagWrapper.entrySet()) {
-            if (state.is(entry.getKey()) && !state.is(entry.getValue())) {
-                cir.setReturnValue(setBlockState(x, y, z, entry.getValue().defaultBlockState(), useLocks));
-            }
-        }
-        Optional.ofNullable(Oneenoughblock.wrappers.get(state.getBlock()))
-                .filter(wrapper -> !state.is(wrapper))
-                .ifPresent(wrapper -> {
-                    cir.setReturnValue(setBlockState(x, y, z, wrapper.defaultBlockState(), useLocks));
-                });
+        CoreUtils.handleBlockState(state, result -> {
+            cir.setReturnValue(setBlockState(x, y, z, result, useLocks));
+        });
     }
 
-
-    @Inject(method = "getBlockState", at = @At("HEAD"))
-    public void getBlockState(int x, int y, int z, CallbackInfoReturnable<BlockState> cir) {
-        Optional.ofNullable(Oneenoughblock.wrappers.get(this.states.get(x, y, z).getBlock()))
-                .ifPresent(wrapper -> {
-                    setBlockState(x,y,z,wrapper.defaultBlockState(),false);
-                });
-    }
+//    @Inject(method = "getBlockState", at = @At("HEAD"))
+//    public void getBlockState(int x, int y, int z, CallbackInfoReturnable<BlockState> cir) {
+//        CoreUtils.handleBlockState(this.states.get(x, y, z), result -> {
+//            setBlockState(x, y, z, result, false);
+//        });
+//    }
 }

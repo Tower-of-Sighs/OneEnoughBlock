@@ -27,25 +27,25 @@ public class Oneenoughblock {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
-    public static Map<Block, Block> wrappers = new HashMap<>();
-    public static Map<net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block>, Block> TagWrapper = new HashMap<>();
-
-    @SubscribeEvent
-    public void onCommonSetup(FMLCommonSetupEvent event) {
-        Config.WRAPPERS.get().forEach(wrapper -> {
-            var s = wrapper.split(">");
-            if (s.length < 2) return;
-            var to = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(s[1].trim()));
-            if (to == null) return;
-            if (s[0].startsWith("#")) {
-                var from = BlockTags.create(new ResourceLocation(s[0].trim().substring(1)));
-                TagWrapper.put(from, to);
-                return;
-            }
-            var from = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(s[0].trim()));
-            if (from != null) {
-                wrappers.put(from, to);
-            }
-        });
-    }
+//    public static Map<Block, Block> wrappers = new HashMap<>();
+//    public static Map<net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block>, Block> TagWrapper = new HashMap<>();
+//
+//    @SubscribeEvent
+//    public void onCommonSetup(FMLCommonSetupEvent event) {
+//        Config.WRAPPERS.get().forEach(wrapper -> {
+//            var s = wrapper.split(">");
+//            if (s.length < 2) return;
+//            var to = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(s[1].trim()));
+//            if (to == null) return;
+//            if (s[0].startsWith("#")) {
+//                var from = BlockTags.create(new ResourceLocation(s[0].trim().substring(1)));
+//                TagWrapper.put(from, to);
+//                return;
+//            }
+//            var from = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(s[0].trim()));
+//            if (from != null) {
+//                wrappers.put(from, to);
+//            }
+//        });
+//    }
 }

@@ -2,11 +2,14 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.sighs.oneenoughblock.mixin",
+  "plugin": "com.sighs.oneenoughblock.mixin.MixinPlugin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "oneenoughblock.refmap.json",
   "mixins": [
+    "ChunkSerializerMixin",
     "LevelChunkSectionMixin",
-    "LevelMixin"
+    "LevelMixin",
+    "PalettedContainerMixin"
   ],
   "client": [
   ],

@@ -1,6 +1,7 @@
 package com.sighs.oneenoughblock.mixin;
 
 import com.sighs.oneenoughblock.Oneenoughblock;
+import com.sighs.oneenoughblock.utils.CoreUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.Level;
@@ -20,16 +21,8 @@ public abstract class LevelMixin {
 
     @Inject(method = "setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)Z",at = @At("HEAD"), cancellable = true)
     private void onSetBlock(BlockPos pos, BlockState state, int p_46607_, int p_46608_, CallbackInfoReturnable<Boolean> cir) {
-        for (Map.Entry<TagKey<Block>, Block> entry : Oneenoughblock.TagWrapper.entrySet()) {
-            if (state.is(entry.getKey()) && !state.is(entry.getValue())) {
-                cir.setReturnValue(setBlock(pos, entry.getValue().defaultBlockState(), p_46607_,p_46608_));
-            }
-        }
-
-        var b = Oneenoughblock.wrappers.get(state.getBlock());
-        if (b != null && !state.is(b)) {
-            cir.setReturnValue(setBlock(pos, b.defaultBlockState(), p_46607_,p_46608_));
-
-        }
+        CoreUtils.handleBlockState(state, result -> {
+            cir.setReturnValue(setBlock(pos, result, p_46607_, p_46608_));
+        });
     }
 }
