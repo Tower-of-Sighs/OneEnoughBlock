@@ -15,9 +15,9 @@ public class CoreUtils {
         for (Map.Entry<TagKey<Block>, Block> entry : EntryCache.TagMapCache.entrySet()) {
             if (blockState.is(entry.getKey()) && !blockState.is(entry.getValue())) {
                 BlockState result = entry.getValue().defaultBlockState();
-                blockState.getValues().forEach((property, comparable) -> {
-                    result.trySetValue((Property<T>) property, (T) comparable);
-                });
+                for (Map.Entry<Property<?>, Comparable<?>> entry1 : blockState.getValues().entrySet()) {
+                    result = result.trySetValue((Property<T>) entry1.getKey(), (T) entry1.getValue());
+                }
                 handler.accept(result);
                 return;
             }
@@ -26,9 +26,9 @@ public class CoreUtils {
                 .filter(wrapper -> !blockState.is(wrapper))
                 .ifPresent(wrapper -> {
                     BlockState result = wrapper.defaultBlockState();
-                    blockState.getValues().forEach((property, comparable) -> {
-                        result.trySetValue((Property<T>) property, (T) comparable);
-                    });
+                    for (Map.Entry<Property<?>, Comparable<?>> entry : blockState.getValues().entrySet()) {
+                        result = result.trySetValue((Property<T>) entry.getKey(), (T) entry.getValue());
+                    }
                     handler.accept(result);
                 });
     }
