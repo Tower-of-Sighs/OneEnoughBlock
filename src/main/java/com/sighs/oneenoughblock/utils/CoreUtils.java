@@ -10,26 +10,26 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+@SuppressWarnings("unchecked")
 public class CoreUtils {
-    public static <T extends Comparable<T>> void handleBlockState(BlockState blockState, Consumer<BlockState> handler) {
+    public static void handleBlockState(BlockState blockState, Consumer<BlockState> handler) {
         for (Map.Entry<TagKey<Block>, Block> entry : EntryCache.TagMapCache.entrySet()) {
             if (blockState.is(entry.getKey()) && !blockState.is(entry.getValue())) {
-                BlockState result = entry.getValue().defaultBlockState();
-                for (Map.Entry<Property<?>, Comparable<?>> entry1 : blockState.getValues().entrySet()) {
-                    result = result.trySetValue((Property<T>) entry1.getKey(), (T) entry1.getValue());
-                }
-                handler.accept(result);
+                handler.accept(saveState(blockState,entry.getValue().defaultBlockState()));
                 return;
             }
         }
         Optional.ofNullable(EntryCache.UnitMapCache.get(blockState.getBlock()))
                 .filter(wrapper -> !blockState.is(wrapper))
                 .ifPresent(wrapper -> {
-                    BlockState result = wrapper.defaultBlockState();
-                    for (Map.Entry<Property<?>, Comparable<?>> entry : blockState.getValues().entrySet()) {
-                        result = result.trySetValue((Property<T>) entry.getKey(), (T) entry.getValue());
-                    }
-                    handler.accept(result);
+                    handler.accept(saveState(blockState,wrapper.defaultBlockState()));
                 });
+    }
+
+    public static <T extends Comparable<T>> BlockState saveState(BlockState from, BlockState to) {
+        for (Map.Entry<Property<?>, Comparable<?>> entry :  from.getValues().entrySet()) {
+            to = to.trySetValue((Property<T>) entry.getKey(), (T) entry.getValue());
+        }
+        return to;
     }
 }
